@@ -195,6 +195,26 @@ public class DoubleVector3Test extends TestCase {
         assertEquals(instance2.norm(),6.403,0.001);
         assertEquals(DoubleVector3.generateZero().norm(),0,0.0);
     }
+    
+    public void testUnit()
+    {
+        System.out.println("unit");
+        DoubleVector3 a = new DoubleVector3(3,4,5);
+        DoubleVector3 b = new DoubleVector3(-2,5,1);
+        DoubleVector3 c = new DoubleVector3(0,0,1);
+        DoubleVector3 d = new DoubleVector3(0.3535,0.3535,0);
+        assertEquals(a.toUnit(),new DoubleVector3(3/Math.sqrt(50),4/Math.sqrt(50),5/Math.sqrt(50)));
+        assertEquals(b.toUnit().minus(new DoubleVector3(-2/Math.sqrt(30),5.0/Math.sqrt(30),1/Math.sqrt(30))).normSquared(),0,0.00000001);
+        assertEquals(c.toUnit(),c);
+        assertEquals(d.toUnit(),new DoubleVector3(1.0/Math.sqrt(2),1.0/Math.sqrt(2),0));
+        try
+        {
+            DoubleVector3.generateZero().toUnit();
+            fail("toUnit() on zero Vector should throw runtime exception");
+        }
+        catch(RuntimeException rte)
+        {}
+    }
     /**
      * Test of plus method, of class DoubleVector3.
      */

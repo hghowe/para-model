@@ -120,5 +120,13 @@ public class DoubleVector3 {
     {
         return Math.sqrt(this.normSquared());
     }
+    
+    public DoubleVector3 toUnit()
+    {
+        if (this.normSquared()== 0.0)
+            throw new RuntimeException("Attempted to calculate Unit Vector of a zero vector");
+        return this.times(1/this.norm());
+    }
 }
+    
     
