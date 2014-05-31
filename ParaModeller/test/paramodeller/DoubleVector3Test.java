@@ -156,6 +156,7 @@ public class DoubleVector3Test extends TestCase {
         DoubleVector3 alternate = new DoubleVector3(-12,12,-4);
         assertEquals(instance.crossProduct(other),expResult);
         assertEquals(instance.crossProduct(alternate),DoubleVector3.generateZero());
+        assertEquals(instance.crossProduct(DoubleVector3.generateZero()),DoubleVector3.generateZero());
     }
 
     /**
@@ -175,6 +176,25 @@ public class DoubleVector3Test extends TestCase {
         assertTrue(instance.times(0.0).equals(DoubleVector3.generateZero()));
     }
 
+    public void testNormSquared()
+    {
+        System.out.println("norm");
+        DoubleVector3 instance = new DoubleVector3(1,2,4);
+        DoubleVector3 instance2 = new DoubleVector3(-4,5,0);
+        assertEquals(instance.normSquared(),21,0.0);
+        assertEquals(instance2.normSquared(),41,0.0);
+        assertEquals(DoubleVector3.generateZero().normSquared(),0,0.0);
+    }
+    
+    public void testNorm()
+    {
+        System.out.println("normSquared");
+        DoubleVector3 instance = new DoubleVector3(1,2,4);
+        DoubleVector3 instance2 = new DoubleVector3(-4,5,0);
+        assertEquals(instance.norm(),4.582,0.001);
+        assertEquals(instance2.norm(),6.403,0.001);
+        assertEquals(DoubleVector3.generateZero().norm(),0,0.0);
+    }
     /**
      * Test of plus method, of class DoubleVector3.
      */
