@@ -67,13 +67,13 @@ public class DoubleVector3 {
             return false;
         }
         final DoubleVector3 other = (DoubleVector3) obj;
-        if (Double.doubleToLongBits(this.x) != Double.doubleToLongBits(other.x)) {
+        if (this.x != other.x) {
             return false;
         }
-        if (Double.doubleToLongBits(this.y) != Double.doubleToLongBits(other.y)) {
+        if (this.y != other.y) {
             return false;
         }
-        if (Double.doubleToLongBits(this.z) != Double.doubleToLongBits(other.z)) {
+        if (this.z != other.z) {
             return false;
         }
         return true;
@@ -111,6 +111,14 @@ public class DoubleVector3 {
         return new DoubleVector3(this.x-other.x,this.y-other.y,this.z-other.z);
     }
     
+    public double normSquared()
+    {
+        return this.x*this.x + this.y*this.y + this.z*this.z;
+    }
     
+    public double norm()
+    {
+        return Math.sqrt(this.normSquared());
+    }
 }
     
