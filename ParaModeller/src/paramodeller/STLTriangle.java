@@ -31,5 +31,9 @@ public class STLTriangle {
        return output;
         
     }      
+
+    public DoubleVector3 getNormal() {
+        return normal;
+    }
           
 }
