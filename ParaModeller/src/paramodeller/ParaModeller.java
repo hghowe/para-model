@@ -30,27 +30,34 @@ public class ParaModeller {
     {
         myPoints = new ArrayList<DoubleVector3>();
         myTriangles = new ArrayList<STLTriangle>();
-        myPoints.add(DoubleVector3.generateZero());
+        myPoints.add(DoubleVector3.generateZero()); // bottom center point
+        // bottom ring of points
         for (int i=0; i<40; i++)
         {
             double angle = Math.PI*i/20;
             myPoints.add(new DoubleVector3(12*Math.cos(angle),12*Math.sin(angle),0));
         }
+        // top ring of points
         double phase = Math.PI*0.5/20;
         for (int i=0; i<40; i++)
         {
             double angle = Math.PI*i/20;
             myPoints.add(new DoubleVector3(12*Math.cos(angle+phase),12*Math.sin(angle+phase),10));
         }
-        DoubleVector3 topPoint = DoubleVector3.generateZero();
+        
+        DoubleVector3 topPoint = DoubleVector3.generateZero();// top center point
         topPoint.setZ(10);
         myPoints.add(topPoint);
         
+        
+        // Now assemble the triangles....
+        // bottom surface
         for (int i=1;i<40;i++)
         {
-            myTriangles.add(new STLTriangle(myPoints.get(0),myPoints.get(i),myPoints.get(i+1)));
+            myTriangles.add(new STLTriangle(myPoints.get(0),myPoints.get(i+1),myPoints.get(i)));
         }
-        myTriangles.add(new STLTriangle(myPoints.get(0),myPoints.get(39),myPoints.get(1)));
+        myTriangles.add(new STLTriangle(myPoints.get(0),myPoints.get(1),myPoints.get(40)));
+        // sides
         for (int i=1;i<40;i++)
         {
             myTriangles.add(new STLTriangle(myPoints.get(i),myPoints.get(i+1),myPoints.get(i+40)));
@@ -58,7 +65,7 @@ public class ParaModeller {
         }
         myTriangles.add(new STLTriangle(myPoints.get(40),myPoints.get(1),myPoints.get(80)));
         myTriangles.add(new STLTriangle(myPoints.get(1),myPoints.get(41),myPoints.get(80)));
-        
+        // top surface
         for (int i=41; i<80; i++)
             myTriangles.add(new STLTriangle(myPoints.get(81),myPoints.get(i),myPoints.get(i+1)));
         myTriangles.add(new STLTriangle(myPoints.get(81),myPoints.get(80),myPoints.get(41)));
@@ -70,6 +77,7 @@ public class ParaModeller {
 //            i++;
 //        
 //        }
+        // print to file
         try
         {
             PrintWriter fileout = new PrintWriter(new FileWriter("CylinderTest.stl")); 
